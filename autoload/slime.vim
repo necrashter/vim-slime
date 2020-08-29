@@ -165,10 +165,12 @@ function! s:VimterminalSend(config, text)
   " Ideally we ought to be able to use a single term_sendkeys call however as
   " of vim 8.0.1203 doing so can cause terminal display issues for longer
   " selections of text.
-  for l in split(a:text,'\n\zs')
-    call term_sendkeys(bufnr,substitute(l,'\n',"\r",''))
-    call term_wait(bufnr)
-  endfor
+  call term_sendkeys(bufnr, substitute(a:text, '\n', "\r", 'g'))
+  call term_wait(bufnr)
+  " for l in split(a:text,'\n\zs')
+  "   call term_sendkeys(bufnr,substitute(l,'\n',"\r",''))
+  "   call term_wait(bufnr)
+  " endfor
 endfunction
 
 function! s:VimterminalDescription(idx,info)
